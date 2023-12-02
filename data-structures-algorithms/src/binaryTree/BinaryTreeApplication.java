@@ -12,6 +12,6 @@ public class BinaryTreeApplication {
                 ), null);
 
         final var binaryTree = BinaryTree.of(node);
-        System.out.println(binaryTree.sum(null, 0));
+        System.out.println(binaryTree.sum());
     }
 }

@@ -1,6 +1,7 @@
 package binaryTree;
 
 import java.util.Objects;
+import java.util.Stack;
 
 public class BinaryTree {
 
@@ -14,13 +15,12 @@ public class BinaryTree {
         return new BinaryTree(root);
     }
 
-    /**
-     *
-     * @param node: can be null
-     * @param sum: recursively sum
-     * @return sum
-     */
-    public int sum(Node node, int sum) {
+
+    public int sum() {
+        return sum(root, 0);
+    }
+
+    private int sum(Node node, int sum) {
         if (Objects.isNull(node)) {
             node = root;
         }
@@ -36,6 +36,32 @@ public class BinaryTree {
         }
 
         return sum;
+    }
+
+    public int max() {
+        if (Objects.isNull(root)) {
+            throw new IllegalStateException("Empty Tree");
+        }
+
+        Stack<Node> nodeStack = new Stack<>();
+        nodeStack.push(root);
+
+        int max = Integer.MIN_VALUE;
+
+        while(!nodeStack.isEmpty()) {
+            Node currentNode = nodeStack.pop();
+            max = Math.max(max, currentNode.getValue());
+
+            if (Objects.nonNull(currentNode.getRight())) {
+                nodeStack.push(currentNode.getRight());
+            }
+
+            if (Objects.nonNull(currentNode.getLeft())) {
+                nodeStack.push(currentNode.getLeft());
+            }
+        }
+
+        return max;
     }
 
 
