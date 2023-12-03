@@ -17,10 +17,36 @@ public class BinaryTree {
 
 
     public int sum() {
-        return sum(root, 0);
+        if (Objects.isNull(root)) {
+            throw new IllegalStateException("Empty Tree");
+        }
+
+        final Stack<Node> nodeStack = new Stack<>();
+        nodeStack.push(root);
+
+        int sum = 0;
+
+        while(!nodeStack.isEmpty()) {
+            final Node currentNode = nodeStack.pop();
+            sum += currentNode.getValue();
+
+            if (Objects.nonNull(currentNode.getRight())) {
+                nodeStack.push(currentNode.getRight());
+            }
+
+            if (Objects.nonNull(currentNode.getLeft())) {
+                nodeStack.push(currentNode.getLeft());
+            }
+        }
+
+        return sum;
     }
 
-    private int sum(Node node, int sum) {
+    public int recursiveSum() {
+        return recursiveSum(root, 0);
+    }
+
+    private int recursiveSum(Node node, int sum) {
         if (Objects.isNull(node)) {
             node = root;
         }
@@ -28,11 +54,11 @@ public class BinaryTree {
         sum += node.getValue();
 
         if (Objects.nonNull(node.getLeft())) {
-            sum = sum(node.getLeft(), sum);
+            sum = recursiveSum(node.getLeft(), sum);
         }
 
         if (Objects.nonNull(node.getRight())) {
-            sum = sum(node.getRight(), sum);
+            sum = recursiveSum(node.getRight(), sum);
         }
 
         return sum;
