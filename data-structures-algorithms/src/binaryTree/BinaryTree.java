@@ -15,6 +15,44 @@ public class BinaryTree {
         return new BinaryTree(root);
     }
 
+    public String postOrderPercussion() {
+        final StringBuilder builder = new StringBuilder();
+        postOrderPercussion(root, builder);
+        builder.replace(builder.length() - 1, builder.length(), "");
+        return builder.toString();
+    }
+
+    private void postOrderPercussion(final Node root, final StringBuilder stringBuilder) {
+        if (Objects.nonNull(root.getLeft())) {
+            postOrderPercussion(root.getLeft(), stringBuilder);
+        }
+
+        if (Objects.nonNull(root.getRight())) {
+            postOrderPercussion(root.getRight(), stringBuilder);
+        }
+
+        stringBuilder.append(root.getValue()).append("-");
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(final Node root) {
+        int left = 0;
+        int right = 0;
+
+        if (Objects.nonNull(root.getLeft())) {
+            left = height(root.getLeft());
+        }
+
+        if (Objects.nonNull(root.getRight())) {
+            right = height(root.getRight());
+        }
+
+        return Math.max(left, right) + 1;
+    }
+
 
     public int sum() {
         if (Objects.isNull(root)) {
